@@ -7,6 +7,7 @@ import eu.mauizio90.RestBlog.entities.Role;
 import eu.mauizio90.RestBlog.entities.User;
 import eu.mauizio90.RestBlog.services.CommentService;
 import eu.mauizio90.RestBlog.services.PostService;
+import eu.mauizio90.RestBlog.services.RoleService;
 import eu.mauizio90.RestBlog.services.UserService;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +27,8 @@ public class CMDLrunner implements CommandLineRunner{
     @Autowired
     PostService postService = new PostService();
     
+    @Autowired
+    RoleService roleService = new RoleService();
     
     @Autowired
     CommentService commentService = new CommentService();
@@ -33,21 +36,18 @@ public class CMDLrunner implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
         
-        Role admin = new Role();
-        Role user = new Role();
-        admin.setName("Admin");
-        user.setName("User");
+        Role adminRole = new Role("ADMIN");
+        Role userRole = new Role("USER");
         
-        Set<Role> rolesAdmin = new HashSet<>();
-        rolesAdmin.add(admin);
-        rolesAdmin.add(user);
+        roleService.addRole(adminRole);
+        roleService.addRole(userRole);
         
-        Set<Role> rolesUser = new HashSet<>();
-        rolesAdmin.add(user);
-        
-        User maurizio = new User("Maurizio", "Mauizio90", "Mauizio90@gmail.com", "maurizio", rolesAdmin);
-        User peter = new User("Peter", "Spiderman", "Spidey@gmail.com", "ragnetto", rolesUser);
-        User logan = new User("Logan", "Wolverine", "wolverine@gmail.com", "ghiro", rolesUser);
+        User maurizio = new User("Maurizio", "Mauizio90", "Mauizio90@gmail.com", "maurizio");
+        maurizio.addRole(roleService.findById(1L).get());
+        User peter = new User("Peter", "Spiderman", "Spidey@gmail.com", "ragnetto");
+        peter.addRole(roleService.findById(2L).get());
+        User logan = new User("Logan", "Wolverine", "wolverine@gmail.com", "ghiro");
+        logan.addRole(roleService.findById(2L).get());
         
         Post post1maurizio = new Post("Titolone del postone", "Descrizione del Postone", "Contenuto del postone", maurizio);
         Post post2maurizio = new Post("Titolone del postone 2", "Descrizione del Postone 2", "Contenuto del postone 2", maurizio);

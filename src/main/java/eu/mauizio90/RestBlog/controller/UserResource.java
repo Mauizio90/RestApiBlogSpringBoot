@@ -80,17 +80,6 @@ public class UserResource {
         
     }
     
-    @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable Long id){
-        Optional<User> user = userService.findById(id);
-        
-        if(user.isEmpty()){
-            throw  new UserNotFoundException("id:"+id);
-                    }
-        userService.deleteById(id);
-        
-    }
-    
     
     @PostMapping("/users")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user){

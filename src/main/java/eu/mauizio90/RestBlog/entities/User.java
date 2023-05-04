@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -34,26 +35,29 @@ public class User {
     private String email;
     private String password;
     
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Post> posts;
     
+    public void addRole(Role role){
+        this.roles.add(role);
+    }
+    
     
     public User() {
     }
 
-    public User(String name, String username, String email, String password, Set<Role> roles) {
+    public User(String name, String username, String email, String password) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.roles = roles;
     }
 
     public Long getId() {
@@ -116,5 +120,7 @@ public class User {
     public String toString() {
         return "User{" + "id=" + id + ", name=" + name + ", username=" + username + ", email=" + email + ", password=" + password + ", roles=" + roles + ", posts=" + posts + '}';
     }
+
+    
 
 }
