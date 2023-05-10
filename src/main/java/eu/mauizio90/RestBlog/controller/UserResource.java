@@ -2,6 +2,7 @@ package eu.mauizio90.RestBlog.controller;
 
 import eu.mauizio90.RestBlog.entities.Post;
 import eu.mauizio90.RestBlog.entities.User;
+import eu.mauizio90.RestBlog.entities.UserDTO;
 import eu.mauizio90.RestBlog.exceptions.UserNotFoundException;
 import eu.mauizio90.RestBlog.services.PostService;
 import eu.mauizio90.RestBlog.services.UserService;
@@ -33,15 +34,15 @@ public class UserResource {
     private PostService postService;
     
     @GetMapping("/users")
-    public List<User> retrieveAllUsers(){
+    public List<UserDTO> retrieveAllUsers(){
         return userService.findAll();
     }
     
     
     
     @GetMapping("/users/{id}")
-    public Optional<User> retrieveUser(@PathVariable Long id){
-        Optional<User> user = userService.findById(id);
+    public Optional<UserDTO> retrieveUser(@PathVariable Long id){
+        Optional<UserDTO> user = userService.findByIdDto(id);
         
         if(user.isEmpty()){
             throw  new UserNotFoundException("id:"+id);
