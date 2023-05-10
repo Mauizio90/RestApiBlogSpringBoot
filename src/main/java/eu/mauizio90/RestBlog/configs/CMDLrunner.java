@@ -22,16 +22,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class CMDLrunner implements CommandLineRunner{
     @Autowired
-    UserService userService = new UserService();
+    UserService userService;
     
     @Autowired
-    PostService postService = new PostService();
+    PostService postService;
     
     @Autowired
-    RoleService roleService = new RoleService();
+    RoleService roleService;
     
     @Autowired
-    CommentService commentService = new CommentService();
+    CommentService commentService;
     
     @Override
     public void run(String... args) throws Exception {
