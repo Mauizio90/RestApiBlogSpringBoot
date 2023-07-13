@@ -1,6 +1,7 @@
 package eu.mauizio90.RestBlog.controller;
 
 import eu.mauizio90.RestBlog.entities.Post;
+import eu.mauizio90.RestBlog.entities.PostCategory;
 import eu.mauizio90.RestBlog.entities.User;
 import eu.mauizio90.RestBlog.exceptions.UserNotFoundException;
 import eu.mauizio90.RestBlog.services.PostService;
@@ -33,6 +34,12 @@ public class PostController {
     @GetMapping("/")
     public ResponseEntity<List<Post>> retrieveAll() {
         List<Post> posts = postService.findAll();
+        return ResponseEntity.ok(posts);
+    }
+    
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<Post>> retrieveAllbyCategory(@PathVariable PostCategory category) {
+        List<Post> posts = postService.findByCategory(category);
         return ResponseEntity.ok(posts);
     }
     

@@ -30,8 +30,8 @@ public class Post {
     @Column(name = "title", nullable = false)
     private String title;
     
-    @Column(name = "description", nullable = false)
-    private String description;
+    @Column(name = "category", nullable = false)
+    private PostCategory category;
 
     @Column(name = "content", nullable = false)
     private String content;
@@ -46,9 +46,9 @@ public class Post {
     public Post() {
     }
 
-    public Post(String title, String description, String content, User user) {
+    public Post(String title, PostCategory category, String content, User user) {
         this.title = title;
-        this.description = description;
+        this.category = category;
         this.content = content;
         this.user = user;
     }
@@ -69,12 +69,12 @@ public class Post {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public PostCategory getCategory() {
+        return category;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCategory(PostCategory category) {
+        this.category = category;
     }
 
     public String getContent() {
@@ -103,8 +103,10 @@ public class Post {
 
     @Override
     public String toString() {
-        return "Post{" + "id=" + id + ", title=" + title + ", description=" + description + ", content=" + content + ", comments=" + comments + ", user=" + user + '}';
+        return "Post{" + "id=" + id + ", title=" + title + ", category=" + category + ", content=" + content + ", user=" + user + '}';
     }
+
+    
 
     
 

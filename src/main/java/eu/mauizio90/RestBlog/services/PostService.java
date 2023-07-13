@@ -1,6 +1,7 @@
 package eu.mauizio90.RestBlog.services;
 
 import eu.mauizio90.RestBlog.entities.Post;
+import eu.mauizio90.RestBlog.entities.PostCategory;
 import eu.mauizio90.RestBlog.repositories.PostRepo;
 import java.util.List;
 import java.util.Optional;
@@ -27,5 +28,9 @@ public class PostService {
 
     public Optional<Post> findById(Long id) {
         return postRepo.findById(id);
+    }
+    
+    public List<Post> findByCategory(PostCategory category) {
+        return postRepo.findByCategory(category);
     }
 }
