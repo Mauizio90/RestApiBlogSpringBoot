@@ -91,5 +91,6 @@ public class CMDLrunner implements CommandLineRunner{
         
         commentService.addComment(commento1);
         commentService.addComment(commento2);
+        
     }
 }
