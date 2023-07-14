@@ -1,14 +1,17 @@
 package eu.mauizio90.RestBlog.controller;
 
+import eu.mauizio90.RestBlog.entities.Category;
 import eu.mauizio90.RestBlog.entities.Post;
 import eu.mauizio90.RestBlog.entities.User;
 import eu.mauizio90.RestBlog.exceptions.UserNotFoundException;
+import eu.mauizio90.RestBlog.services.CategoryService;
 import eu.mauizio90.RestBlog.services.PostService;
 import eu.mauizio90.RestBlog.services.UserService;
 import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +32,9 @@ public class PostController {
     
     @Autowired
     private PostService postService;
+    
+    @Autowired
+    private CategoryService categoryService;
     
     @GetMapping("/")
     public ResponseEntity<List<Post>> retrieveAll() {
@@ -65,5 +71,17 @@ public class PostController {
                 .toUri();
         
         return ResponseEntity.created(location).build();
+    }
+    
+    @GetMapping("/category")
+    public ResponseEntity<List<Category>> retrieveAllCategories() {
+        List<Category> categories = categoryService.findAll();
+        return ResponseEntity.ok(categories);
+    }
+    
+    @GetMapping("/category/{categoryId}/posts")
+    public ResponseEntity<Set<Post>> retrieveAllbyCategories(@PathVariable Long categoryId) {
+        Set<Post> posts = postService.findAllPostsByCategory(categoryId);
+        return ResponseEntity.ok(posts);
     }
 }
