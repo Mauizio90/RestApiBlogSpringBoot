@@ -11,8 +11,6 @@ import eu.mauizio90.RestBlog.services.CommentService;
 import eu.mauizio90.RestBlog.services.PostService;
 import eu.mauizio90.RestBlog.services.RoleService;
 import eu.mauizio90.RestBlog.services.UserService;
-import java.util.HashSet;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
