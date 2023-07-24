@@ -51,6 +51,7 @@ public class Post {
             name = "post_category",
             joinColumns = @JoinColumn(name = "post_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @JsonIgnore
     private Set<Category> categories = new HashSet<>();
 
     public Post() {

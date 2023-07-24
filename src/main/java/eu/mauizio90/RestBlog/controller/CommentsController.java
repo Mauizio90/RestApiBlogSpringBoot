@@ -11,10 +11,12 @@ import java.util.Optional;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -23,6 +25,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * @author mauiz
  */
 @RestController
+@RequestMapping("api/comments")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class CommentsController {
     
     @Autowired
@@ -31,7 +35,7 @@ public class CommentsController {
     @Autowired
     private CommentService commentService;
     
-    @GetMapping("/posts/{id}/comments")
+    @GetMapping("/posts/{id}")
     public Set<Comment> retrieveAllCommentsByPost(@PathVariable Long id){
         Optional<Post> post = postService.findById(id);
         
@@ -44,7 +48,7 @@ public class CommentsController {
         return post.get().getComments();
     }
     
-    @PostMapping("/posts/{id}/comments")
+    @PostMapping("/posts/{id}/create")
     public ResponseEntity<Object> createCommentsByPost(@PathVariable Long id, @Valid @RequestBody Comment comment){
         Optional<Post> post = postService.findById(id);
         

@@ -14,10 +14,12 @@ import java.util.Optional;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -25,7 +27,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  *
  * @author mauiz
  */
+@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
+@RequestMapping("api/posts")
 public class PostController {
     @Autowired
     private UserService userService;
@@ -36,13 +40,13 @@ public class PostController {
     @Autowired
     private CategoryService categoryService;
     
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<Post>> retrieveAll() {
         List<Post> posts = postService.findAll();
         return ResponseEntity.ok(posts);
     }
     
-    @GetMapping("/users/{id}/posts")
+    @GetMapping("/users/{id}")
     public List<Post> retrieveAllPostsByUser(@PathVariable Long id){
         Optional<User> user = userService.findById(id);
         
@@ -55,7 +59,7 @@ public class PostController {
         return user.get().getPosts();
     }
     
-    @PostMapping("/users/{id}/posts")
+    @PostMapping("/users/{id}/create")
     public ResponseEntity<Object> createPostsByUser(@PathVariable Long id, @Valid @RequestBody Post post){
         Optional<User> user = userService.findById(id);
         
@@ -73,11 +77,7 @@ public class PostController {
         return ResponseEntity.created(location).build();
     }
     
-    @GetMapping("/category")
-    public ResponseEntity<List<Category>> retrieveAllCategories() {
-        List<Category> categories = categoryService.findAll();
-        return ResponseEntity.ok(categories);
-    }
+    
     
     @GetMapping("/category/{categoryId}/posts")
     public ResponseEntity<Set<Post>> retrieveAllbyCategories(@PathVariable Long categoryId) {
