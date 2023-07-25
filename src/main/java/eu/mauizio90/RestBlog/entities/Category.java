@@ -22,14 +22,17 @@ public class Category {
     
     private String name;
     
+    private String description;
+    
     @ManyToMany(mappedBy = "categories")
     private Set<Post> posts = new HashSet<>();
 
     public Category() {
     }
 
-    public Category(String name) {
+    public Category(String name, String description) {
         this.name = name;
+        this.description = description;
     }
 
     public Long getId() {
@@ -48,6 +51,14 @@ public class Category {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Set<Post> getPosts() {
         return posts;
     }
@@ -58,7 +69,7 @@ public class Category {
 
     @Override
     public String toString() {
-        return "Category{" + "id=" + id + ", name=" + name + ", posts=" + posts + '}';
+        return "Category{" + "id=" + id + ", name=" + name + ", description=" + description + ", posts=" + posts + '}';
     }
     
     

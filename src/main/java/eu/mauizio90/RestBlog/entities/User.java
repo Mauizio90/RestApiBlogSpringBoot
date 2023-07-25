@@ -1,7 +1,7 @@
 package eu.mauizio90.RestBlog.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.CascadeType;
+import eu.mauizio90.RestBlog.services.RoleService;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -16,6 +16,7 @@ import jakarta.persistence.UniqueConstraint;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *

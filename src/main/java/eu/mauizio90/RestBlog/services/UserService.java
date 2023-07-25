@@ -1,5 +1,6 @@
 package eu.mauizio90.RestBlog.services;
 
+import eu.mauizio90.RestBlog.entities.Role;
 import eu.mauizio90.RestBlog.entities.User;
 import eu.mauizio90.RestBlog.entities.UserDTO;
 import eu.mauizio90.RestBlog.repositories.UserRepo;
@@ -22,6 +23,9 @@ public class UserService {
     @Autowired
     private UserDTOMapper userDTOMapper;
     
+    @Autowired
+    RoleService roleService;
+    
     public User addUser(User user){
        return userRepo.save(user);
     }
@@ -43,5 +47,13 @@ public class UserService {
 
     public void deleteById(Long id){
         userRepo.deleteById(id);
-    }    
+    }
+
+    public User createUser(String name, String username, String email, String password) {
+        User user = new User(name, username, email, password);
+        Role defaultRole = roleService.findById(2L).orElseThrow(() -> new RuntimeException("Default role not found"));
+        user.addRole(defaultRole);
+
+        return userRepo.save(user);
+    }
 }

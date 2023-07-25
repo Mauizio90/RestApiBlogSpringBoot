@@ -37,13 +37,16 @@ public class PostController {
     @Autowired
     private PostService postService;
     
-    @Autowired
-    private CategoryService categoryService;
-    
     @GetMapping("")
     public ResponseEntity<List<Post>> retrieveAll() {
         List<Post> posts = postService.findAll();
         return ResponseEntity.ok(posts);
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Post>> retrievePostById(@PathVariable Long id) {
+        Optional<Post> post = postService.findById(id);
+        return ResponseEntity.ok(post);
     }
     
     @GetMapping("/users/{id}")

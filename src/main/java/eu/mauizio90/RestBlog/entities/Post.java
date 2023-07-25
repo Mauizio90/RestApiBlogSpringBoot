@@ -53,15 +53,19 @@ public class Post {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     @JsonIgnore
     private Set<Category> categories = new HashSet<>();
+    
+    @Column(name = "image_url")
+    private String imageUrl;
 
     public Post() {
     }
 
-    public Post(String title, String description, String content, User user) {
+    public Post(String title, String description, String content, User user, String imageUrl) {
         this.title = title;
         this.description = description;
         this.content = content;
         this.user = user;
+        this.imageUrl = imageUrl;
     }
 
     public Long getId() {
@@ -120,9 +124,19 @@ public class Post {
         this.categories = categories;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+    
+    
+
     @Override
     public String toString() {
-        return "Post{" + "id=" + id + ", title=" + title + ", description=" + description + ", content=" + content + ", comments=" + comments + ", user=" + user + '}';
+        return "Post{" + "id=" + id + ", title=" + title + ", description=" + description + ", content=" + content + ", comments=" + comments + ", user=" + user + ", categories=" + categories + ", imageUrl=" + imageUrl + '}';
     }
 
     public void addCategory(Category category) {
