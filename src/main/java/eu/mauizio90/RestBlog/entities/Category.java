@@ -1,5 +1,6 @@
 package eu.mauizio90.RestBlog.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -59,6 +60,7 @@ public class Category {
         this.description = description;
     }
 
+    @JsonIgnore
     public Set<Post> getPosts() {
         return posts;
     }

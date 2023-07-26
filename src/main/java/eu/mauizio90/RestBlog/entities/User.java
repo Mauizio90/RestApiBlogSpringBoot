@@ -1,7 +1,7 @@
 package eu.mauizio90.RestBlog.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import eu.mauizio90.RestBlog.services.RoleService;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +16,6 @@ import jakarta.persistence.UniqueConstraint;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -26,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Table(name = "users", uniqueConstraints = {
 @UniqueConstraint(columnNames = {"username"}),
 @UniqueConstraint(columnNames = {"email"})})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
     
     @Id
@@ -121,6 +121,8 @@ public class User {
     public String toString() {
         return "User{" + "id=" + id + ", name=" + name + ", username=" + username + ", email=" + email + ", password=" + password + ", roles=" + roles + ", posts=" + posts + '}';
     }
+
+    
 
     
 

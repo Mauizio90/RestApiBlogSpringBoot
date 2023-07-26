@@ -43,7 +43,6 @@ public class Post {
     private Set<Comment> comments = new HashSet<>();
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
     private User user;
     
     @ManyToMany
@@ -51,7 +50,7 @@ public class Post {
             name = "post_category",
             joinColumns = @JoinColumn(name = "post_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-    @JsonIgnore
+    
     private Set<Category> categories = new HashSet<>();
     
     @Column(name = "image_url")
