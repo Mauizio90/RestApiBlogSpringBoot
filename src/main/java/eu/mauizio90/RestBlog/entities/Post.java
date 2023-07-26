@@ -45,6 +45,8 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
     
+    private boolean featured;
+    
     @ManyToMany
     @JoinTable(
             name = "post_category",
@@ -65,6 +67,7 @@ public class Post {
         this.content = content;
         this.user = user;
         this.imageUrl = imageUrl;
+        this.setFeatured(false);
     }
 
     public Long getId() {
@@ -115,6 +118,14 @@ public class Post {
         this.user = user;
     }
 
+    public boolean isFeatured() {
+        return featured;
+    }
+
+    public void setFeatured(boolean featured) {
+        this.featured = featured;
+    }
+
     public Set<Category> getCategories() {
         return categories;
     }
@@ -131,16 +142,16 @@ public class Post {
         this.imageUrl = imageUrl;
     }
     
-    
-
-    @Override
-    public String toString() {
-        return "Post{" + "id=" + id + ", title=" + title + ", description=" + description + ", content=" + content + ", comments=" + comments + ", user=" + user + ", categories=" + categories + ", imageUrl=" + imageUrl + '}';
-    }
-
     public void addCategory(Category category) {
         this.categories.add(category);
     }
+
+    @Override
+    public String toString() {
+        return "Post{" + "id=" + id + ", title=" + title + ", description=" + description + ", content=" + content + ", comments=" + comments + ", user=" + user + ", featured=" + featured + ", categories=" + categories + ", imageUrl=" + imageUrl + '}';
+    }
+    
+    
 
     
 
